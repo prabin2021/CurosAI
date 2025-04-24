@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        
+        <form action="{{ url_for('add') }}" method="POST" class="add-form">
+            <input type="text" name="title" placeholder="Enter todo title" required>
+            <input type="text" name="description" placeholder="Enter description (optional)">
+            <button type="submit">Add Todo</button>
+        </form>
+
+        <div class="todos">
+            {% for todo in todos %}
+            <div class="todo-item {% if todo.completed %}completed{% endif %}">
+                <div class="todo-content">
+                    <h3>{{ todo.title }}</h3>
+                    {% if todo.description %}
+                    <p>{{ todo.description }}</p>
+                    {% endif %}
+                    <small>Created: {{ todo.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                </div>
+                <div class="todo-actions">
+                    <a href="{{ url_for('complete', id=todo.id) }}" class="btn complete">
+                        {% if todo.completed %}Undo{% else %}Complete{% endif %}
+                    </a>
+                    <a href="{{ url_for('delete', id=todo.id) }}" class="btn delete">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> 

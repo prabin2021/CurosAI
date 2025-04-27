@@ -9,5 +9,5 @@ user_query_agent = Agent(
     goal="Understand the user's movie preferences",
     backstory="An expert in understanding what movie genres and styles people enjoy.",
     verbose=True,
-    llm = ChatOllama(model="mistral")
+    llm=ChatOllama(model="ollama/mistral")
 )
